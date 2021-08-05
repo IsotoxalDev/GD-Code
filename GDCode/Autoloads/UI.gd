@@ -17,8 +17,11 @@ class Text extends Label:
 	func _init(text: String = ""):
 		self.text = text
 		self.set_theme(Theme.new())
+	
+	func set_font_size(size: int):
 		self.get_theme().default_font = DynamicFont.new()
 		self.get_theme().default_font.font_data = Data.font_data
+		self.get_theme().default_font.size = size
 
 class TextBtn extends Button:
 	func _init(text: String = "", fn: FuncRef = FuncRef.new()):
@@ -26,10 +29,14 @@ class TextBtn extends Button:
 		self.flat = true
 		self.focus_mode = Control.FOCUS_NONE
 		self.set_theme(Theme.new())
-		self.get_theme().default_font = DynamicFont.new()
-		self.get_theme().default_font.font_data = Data.font_data
+		
 		if fn.is_valid():
 			var _n = connect("pressed", self, "sig", [fn])
 	
 	func sig(fn):
 		fn.call_func()
+	
+	func set_font_size(size: int):
+		self.get_theme().default_font = DynamicFont.new()
+		self.get_theme().default_font.font_data = Data.font_data
+		self.get_theme().default_font.size = size

@@ -1,12 +1,12 @@
 extends Entry
 
 
-func _begin():
+func _ready():
 	self.buttons = {
 		"Help": "help"
 	}
 	var time = Time.new()
-	time.get_theme().default_font.size = 30
+	time.set_font_size(30)
 	add_child(time)
 
 

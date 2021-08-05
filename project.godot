@@ -1,0 +1,64 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Control",
+"class": "Entry",
+"language": "GDScript",
+"path": "res://GDCode/Modes/Entry.gd"
+}, {
+"base": "Resource",
+"class": "GDC_Theme",
+"language": "GDScript",
+"path": "res://GDC_Theme.gd"
+}, {
+"base": "Control",
+"class": "GDCode",
+"language": "GDScript",
+"path": "res://GDCode/GDCode.gd"
+}, {
+"base": "Control",
+"class": "TextInp",
+"language": "GDScript",
+"path": "res://GDCode/Modes/Text.gd"
+}, {
+"base": "",
+"class": "Time",
+"language": "GDScript",
+"path": "res://Default/Time.gd"
+} ]
+_global_script_class_icons={
+"Entry": "",
+"GDC_Theme": "",
+"GDCode": "",
+"TextInp": "",
+"Time": ""
+}
+
+[application]
+
+config/name="GD-Code"
+run/main_scene="res://GDCode/GDCode.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="GD-Code"
+run/low_processor_mode=true
+
+[autoload]
+
+UI="*res://GDCode/Autoloads/UI.gd"
+Data="*res://GDCode/Autoloads/Data.gd"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

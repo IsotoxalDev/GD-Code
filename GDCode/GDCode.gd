@@ -9,7 +9,7 @@ enum Mode {ENTRY, TEXT, SCRIPT}
 
 
 # Variables
-var args = Array(OS.get_cmdline_args())
+var args = []
 var config_path: String
 var files = []
 var flags = []
@@ -18,7 +18,8 @@ var gdc_theme: GDC_Theme
 # Mode vars
 var mode = Mode.TEXT setget set_mode
 var modes = {
-	"entry": "res://GDCode/Entry.gd"
+	"entry": "res://GDCode/Modes/Entry.gd",
+	"text": "res://GDCode/Modes/Text.gd"
 }
 
 
@@ -33,7 +34,7 @@ func _load_config():
 
 
 func _parse_args():
-	args.pop_front()
+	args = Array(OS.get_cmdline_args())
 	for i in args:
 		if i.begins_with('-'):
 			flags.append(i)
@@ -41,6 +42,7 @@ func _parse_args():
 		files.append(i)
 	if files == []:
 		set_mode(Mode.ENTRY)
+	else: set_mode(Mode.TEXT)
 
 
 func _base():
@@ -57,6 +59,7 @@ func _add(path: String):
 	var script = load(to_abs(path))
 	var new_entry = Control.new()
 	new_entry.set_script(script)
+	new_entry.parent = self
 	UI._fill_rect(new_entry)
 	add_child(new_entry)
 
@@ -81,8 +84,7 @@ func set_font(font_path: String):
 
 
 func set_font_size(size: int):
-	var theme = self.get_theme()
-	theme.default_font.size = size
+	get_theme().default_font.size = size
 
 
 func set_mode(val):
@@ -90,6 +92,8 @@ func set_mode(val):
 	match val:
 		Mode.ENTRY:
 			_add(modes.entry)
+		Mode.TEXT:
+			_add(modes.text)
 
 
 # Change relative to absolute
